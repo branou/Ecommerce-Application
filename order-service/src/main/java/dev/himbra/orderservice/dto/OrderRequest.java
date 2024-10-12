@@ -1,9 +1,11 @@
 package dev.himbra.orderservice.dto;
 
+import java.math.BigDecimal;
+
 public record OrderRequest(
          Integer id,
          String orderNumber,
-         double price,
+         BigDecimal price,
          int quantity
 ) {
 }

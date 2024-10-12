@@ -3,6 +3,7 @@ package dev.himbra.productservice;
 import dev.himbra.productservice.model.Product;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -22,10 +23,12 @@ class ProductServiceApplicationTests {
     static {
         mongoDBContainer.start();
     }
-
+    @BeforeEach
+    void setUp(){
+        RestAssured.port=port;
+    }
     @Test
     void shouldCreateProduct() {
-        RestAssured.port=port;
         Product product = new Product("1","Samsung","an amazing phone",2000);
 
         RestAssured.given()
@@ -39,5 +42,16 @@ class ProductServiceApplicationTests {
                 .body("price", Matchers.equalTo(2000.0F));
 
     }
+    @Test
+    void shouldReturnAllProducts(){
+        RestAssured.given()
+                .contentType("application/json")
+                .when()
+                .get("api/product/products")
+                .then()
+                .statusCode(200)
+                .body(Matchers.equalTo(""));
+    }
+
 
 }
