@@ -23,9 +23,9 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://root:password@mongo:27017/
       ME_CONFIG_BASICAUTH: false
 
-  postgresql:
+  postgresqlOrder:
     image: postgres
-    container_name: postgres-container
+    container_name: postgres-containerOrder
     ports:
       - 5433:5432
     environment:
@@ -35,6 +35,20 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
     restart: unless-stopped
+
+  postgresqlInventory:
+    image: postgres
+    container_name: postgres-containerInve
+    ports:
+      - 5434:5432
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: inventory
+    volumes:
+      - postgresInventory:/var/lib/postgresql/data
+    restart: unless-stopped
 volumes:
   mongo:
   postgres:
+  postgresInventory:
