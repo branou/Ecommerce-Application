@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class InventoryController {
     private final InventoryService inventoryService;
-    @PostMapping ("/checkStock/{productCode}/{quantity}")
+    @GetMapping ("/checkStock/{productCode}/{quantity}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public Boolean isInStock(@PathVariable String productCode,@PathVariable int quantity){
         return inventoryService.isInStock(productCode,quantity);
